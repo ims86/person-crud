@@ -19,12 +19,12 @@ public class Person implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser nulo")
     private String name;
-    @NotBlank
-    @CPF
+    @NotBlank(message = "Informe um CPF válido")
+    @CPF(message = "Informe um CPF válido")
     private String cpf;
-    @Past
+    @Past(message = "Data de nascimento não pode ser uma data futura")
     private Date bornDate;
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contact> contacts;

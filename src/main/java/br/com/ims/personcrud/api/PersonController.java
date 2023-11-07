@@ -2,9 +2,12 @@ package br.com.ims.personcrud.api;
 
 import br.com.ims.personcrud.entities.Person;
 import br.com.ims.personcrud.services.PersonService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
@@ -30,7 +33,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<Person> insert(@RequestBody Person obj){
+    public ResponseEntity<Person> insert(@RequestBody @Valid Person obj){
         obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.
                 fromCurrentRequest().path("/{id}").
@@ -45,7 +48,7 @@ public class PersonController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Person> update(@PathVariable Long id, @RequestBody Person obj){
+    public ResponseEntity<Person> update(@PathVariable Long id, @RequestBody @Valid Person obj){
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }

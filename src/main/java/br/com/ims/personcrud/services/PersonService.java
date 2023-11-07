@@ -3,10 +3,10 @@ package br.com.ims.personcrud.services;
 import br.com.ims.personcrud.entities.Contact;
 import br.com.ims.personcrud.entities.Person;
 import br.com.ims.personcrud.repositories.PersonRepository;
+import br.com.ims.personcrud.services.exceptions.MethodArgumentNotValidException;
 import br.com.ims.personcrud.services.exceptions.DatabaseException;
 import br.com.ims.personcrud.services.exceptions.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -38,8 +38,8 @@ public class PersonService {
             Person person = repository.save(obj);
             return updatePersonContact(obj, person);
         }
-        catch (ConstraintViolationException e){
-            throw new DatabaseException(e.getMessage());
+        catch (MethodArgumentNotValidException e){
+            throw new MethodArgumentNotValidException(e.getMessage());
         }
     }
 

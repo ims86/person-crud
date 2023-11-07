@@ -15,12 +15,12 @@ public class Contact implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
+    @NotBlank(message = "Nome não pode ser nulo")
     private String name;
-    @NotBlank
+    @NotBlank(message = "Telefone não pode ser nulo")
     private String phone;
-    @NotBlank
-    @Email
+    @NotBlank(message = "Email não pode ser nulo")
+    @Email(message = "Informe um email válido")
     private String email;
     @JsonIgnore
     @ManyToOne
